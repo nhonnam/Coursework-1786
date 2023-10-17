@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { Text, View, TextInput, StyleSheet } from "react-native";
+import { Text, View, TextInput, StyleSheet, Alert } from "react-native";
 import { Button } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RadioGroup from "react-native-radio-buttons-group";
 import SelectDropdown from "react-native-select-dropdown";
+import Database from "./../Database";
 
 const AddScreen = () => {
   const [show, setShow] = useState(false);
@@ -16,7 +17,6 @@ const AddScreen = () => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
-    // formik.setFieldValue("date", selectedDate.toLocaleDateString());
   };
 
   const radioButtons = useMemo(
@@ -35,18 +35,66 @@ const AddScreen = () => {
     []
   );
 
-  const levels = ["High", "Medium", "Low"];
+  const levels = ["Medium", "Low", "High"];
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(new Date());
-  const [selectedId, setSelectedId] = useState();
+  const [selectedId, setSelectedId] = useState(null);
   const [length, setLength] = useState("");
   const [level, setLevel] = useState("");
   const [description, setDescription] = useState("");
 
-  const onSubmit = () => {
-    console.log(name, location, date, selectedId, length, level, description);
+  const onSubmit = async () => {
+    if (
+      name === "" ||
+      location === "" ||
+      selectedId == null ||
+      length === "" ||
+      level === "" ||
+      description === ""
+    ) {
+      console.log(
+        name,
+        location,
+        date.toLocaleDateString(),
+        selectedId,
+        length,
+        level,
+        description
+      );
+      Alert.alert("Error", "All required fields must be filled.", [
+        { text: "OK" },
+      ]);
+      return;
+    }
+    Alert.alert(
+      "Confirmation",
+      `New hike will be added:\nName: ${name}\nLocation: ${location}\nDate of the hike: ${date.toLocaleDateString()}\nParking available: ${
+        selectedId === 1 ? "Yes" : "No"
+      }\nLength of the hike: ${length}\nDifficulty level: ${level}\n\nAre you sure?`,
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            const hike = {
+              name,
+              location,
+              date: date.toLocaleDateString(),
+              has_parking: selectedId === 1 ? true : false,
+              length: Number(length),
+              level,
+              description,
+            };
+            await Database.addHike(hike);
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -127,7 +175,7 @@ const AddScreen = () => {
         data={levels}
         onSelect={(selectedItem, index) => {
           console.log(selectedItem, index);
-          setLevel(index);
+          setLevel(selectedItem);
         }}
       />
 
