@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, TextInput, Button, Alert } from "react-native";
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+} from "react-native";
 import React, { useMemo, useState } from "react";
 import RadioGroup from "react-native-radio-buttons-group";
 import SelectDropdown from "react-native-select-dropdown";
@@ -92,7 +99,7 @@ const EditScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Name */}
       <Text style={styles.text}>
         Name of the hike<Text style={styles.redStar}>*</Text>
@@ -185,7 +192,7 @@ const EditScreen = ({ route }) => {
       />
 
       <Button onPress={onSubmit} title="Save" />
-    </View>
+    </ScrollView>
   );
 };
 

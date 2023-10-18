@@ -1,5 +1,6 @@
 import {
   Text,
+  ScrollView,
   View,
   StyleSheet,
   FlatList,
@@ -62,7 +63,7 @@ const ListScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Button title="Delete All" onPress={handleDeleteAll} />
       <Text></Text>
       <FlatList
@@ -83,7 +84,7 @@ const ListScreen = ({ navigation }) => {
         }}
         keyExtractor={(item) => item.id}
       />
-    </View>
+    </ScrollView>
   );
 };
 

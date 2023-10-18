@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Text, View, TextInput, StyleSheet, Alert } from "react-native";
+import { Text, TextInput, StyleSheet, Alert, ScrollView } from "react-native";
 import { Button } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RadioGroup from "react-native-radio-buttons-group";
@@ -90,7 +90,7 @@ const AddScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Name */}
       <Text style={styles.text}>
         Name of the hike<Text style={styles.redStar}>*</Text>
@@ -182,7 +182,7 @@ const AddScreen = () => {
       />
 
       <Button onPress={onSubmit} title="Add" />
-    </View>
+    </ScrollView>
   );
 };
 

@@ -136,6 +136,23 @@ const updateHike = (hike) => {
   });
 };
 
+const searchHikes = (search) => {
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * FROM Hike WHERE name LIKE ?",
+        [`%${search}%`],
+        (_, { rows }) => {
+          resolve(rows._array);
+        },
+        (_, error) => {
+          reject(error);
+        }
+      );
+    });
+  });
+};
+
 const Database = {
   initDatabase,
   addHike,
@@ -143,6 +160,7 @@ const Database = {
   deleteHike,
   deleteAllHikes,
   updateHike,
+  searchHikes,
 };
 
 export default Database;
