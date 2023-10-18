@@ -1,13 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import HomeScreen from "./screens/HomeScreen";
-import AddScreen from "./screens/AddScreen";
-import SearchScreen from "./screens/SearchScreen";
+
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import Database from "./Database";
+import EditScreen from "./screens/Hikes/EditScreen";
+import HomeRoute from "./screens/HomeRoute";
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -17,11 +19,14 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Add" component={AddScreen} />
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-      </Tab.Navigator>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeRoute}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="Edit" component={EditScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

@@ -4,7 +4,7 @@ import { Button } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RadioGroup from "react-native-radio-buttons-group";
 import SelectDropdown from "react-native-select-dropdown";
-import Database from "./../Database";
+import Database from "../../Database";
 
 const AddScreen = () => {
   const [show, setShow] = useState(false);
@@ -54,15 +54,7 @@ const AddScreen = () => {
       level === "" ||
       description === ""
     ) {
-      console.log(
-        name,
-        location,
-        date.toLocaleDateString(),
-        selectedId,
-        length,
-        level,
-        description
-      );
+      console.log(name, location, date, selectedId, length, level, description);
       Alert.alert("Error", "All required fields must be filled.", [
         { text: "OK" },
       ]);
@@ -185,8 +177,6 @@ const AddScreen = () => {
       </Text>
       <TextInput
         style={styles.input}
-        multiline={true}
-        numberOfLines={3}
         onChangeText={(text) => setDescription(text)}
         value={description}
       />

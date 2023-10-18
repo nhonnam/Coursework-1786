@@ -1,10 +1,17 @@
-import { Text, View, StyleSheet, FlatList, Alert } from "react-native";
-import Database from "./../Database";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
+import Database from "../../Database";
 import React, { useState, useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { Button } from "react-native";
 
-const HomeScreen = ({ navigation }) => {
+const ListScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [hikes, setHikes] = useState([]);
 
@@ -62,13 +69,16 @@ const HomeScreen = ({ navigation }) => {
         data={hikes}
         renderItem={({ item }) => {
           return (
-            <View style={styles.itemContainer}>
+            <TouchableOpacity
+              style={styles.itemContainer}
+              onPress={() => navigation.navigate("Edit", { hike: item })}
+            >
               <Text style={styles.itemText}>{item.name}</Text>
               <View style={styles.buttonContainer}>
                 <Button title="more" />
                 <Button title="delete" onPress={() => handleDelete(item.id)} />
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(item) => item.id}
@@ -98,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ListScreen;

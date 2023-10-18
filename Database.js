@@ -117,12 +117,32 @@ const deleteAllHikes = () => {
   });
 };
 
+const updateHike = (hike) => {
+  const { id, name, location, date, has_parking, length, level, description } =
+    hike;
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "UPDATE Hike SET name = ?, location = ?, date = ?, has_parking = ?, length = ?, level = ?, description = ? WHERE id = ?",
+        [name, location, date, has_parking, length, level, description, id],
+        (_, results) => {
+          resolve(results.rowsAffected);
+        },
+        (_, error) => {
+          reject(error);
+        }
+      );
+    });
+  });
+};
+
 const Database = {
   initDatabase,
   addHike,
   getHikes,
   deleteHike,
   deleteAllHikes,
+  updateHike,
 };
 
 export default Database;
