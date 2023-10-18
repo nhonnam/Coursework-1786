@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  ScrollView,
+  View,
   Text,
   TextInput,
   StyleSheet,
@@ -20,7 +20,7 @@ const SearchScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         onChangeText={(text) => setSearch(text)}
@@ -46,7 +46,7 @@ const SearchScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id}
         />
       )}
-    </ScrollView>
+    </View>
   );
 };
 

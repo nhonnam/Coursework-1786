@@ -1,6 +1,5 @@
 import {
   Text,
-  ScrollView,
   View,
   StyleSheet,
   FlatList,
@@ -21,7 +20,6 @@ const ListScreen = ({ navigation }) => {
       try {
         const data = await Database.getHikes();
         setHikes(data);
-        console.log(hikes);
       } catch (error) {
         console.log("Error fetching hike", error);
       }
@@ -63,7 +61,7 @@ const ListScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Button title="Delete All" onPress={handleDeleteAll} />
       <Text></Text>
       <FlatList
@@ -84,7 +82,7 @@ const ListScreen = ({ navigation }) => {
         }}
         keyExtractor={(item) => item.id}
       />
-    </ScrollView>
+    </View>
   );
 };
 

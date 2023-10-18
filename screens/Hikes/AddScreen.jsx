@@ -54,7 +54,6 @@ const AddScreen = () => {
       level === "" ||
       description === ""
     ) {
-      console.log(name, location, date, selectedId, length, level, description);
       Alert.alert("Error", "All required fields must be filled.", [
         { text: "OK" },
       ]);
